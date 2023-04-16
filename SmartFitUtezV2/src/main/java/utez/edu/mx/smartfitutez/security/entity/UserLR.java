@@ -90,6 +90,26 @@ public class UserLR {
     public UserLR(String name, String last_name, Date birthday, String email, String password, String encode) {
     }
 
+    //Actualizar Instructor
+
+    public UserLR(String name, String last_name, Date birthday, String email) {
+        this.name = name;
+        this.last_name = last_name;
+        this.birthday = birthday;
+        this.email = email;
+    }
+
+    //Actualizar estudiante
+    public UserLR(String name, String last_name, Date birthday, double current_weight, String height, String gender, String email) {
+        this.name = name;
+        this.last_name = last_name;
+        this.birthday = birthday;
+        this.current_weight = current_weight;
+        this.height = height;
+        this.gender = gender;
+        this.email = email;
+    }
+
     //Constructor de admin
     public UserLR(String name, String email, String password){
         this.name = name;

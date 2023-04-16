@@ -70,8 +70,6 @@ public class UserLrService {
             instructor.setLast_name(updatedInstructor.getLast_name());
             instructor.setBirthday(updatedInstructor.getBirthday());
             instructor.setEmail(updatedInstructor.getEmail());
-            String encodedPassword = passwordEncoder.encode(updatedInstructor.getPassword());
-            instructor.setPassword(encodedPassword);
             return userLrRepository.save(instructor);
         } else {
             return null;
@@ -107,8 +105,6 @@ public class UserLrService {
             student.setLast_name(updatedStudent.getLast_name());
             student.setBirthday(updatedStudent.getBirthday());
             student.setEmail(updatedStudent.getEmail());
-            String encodedPassword = passwordEncoder.encode(updatedStudent.getPassword());
-            student.setPassword(encodedPassword);
             return userLrRepository.save(student);
         } else {
             return null;
