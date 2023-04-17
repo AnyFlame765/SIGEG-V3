@@ -107,6 +107,15 @@ public class RoutineService {
         return routinesRepository.findRoutinesByUserId(user.get().getId());
     }
 
+    public List<Routines> findRoutinesByNameAndUserId(String name, Long id) {
+        Optional<UserLR> user = userRepository.findByIdAndAlumnoRole(id);
+        if (user.isEmpty()) {
+            logger.error("User with id {} and role 'Usuario' not found.", id);
+            throw new RuntimeException("User with id " + id + " and role 'Usuario' not found.");
+        }
+        return routinesRepository.findRoutinesByNameAndUserId(name, id);
+    }
+
     @Transactional
     public void deleteRoutinesByNameAndUserId(String name, Long id) {
         Optional<UserLR> user = userRepository.findByIdAndAlumnoRole(id);

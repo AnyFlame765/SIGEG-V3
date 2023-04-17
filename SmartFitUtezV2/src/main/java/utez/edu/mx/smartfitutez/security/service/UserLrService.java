@@ -42,7 +42,6 @@ public class UserLrService {
         return userLrRepository.existsById(id);
     }
 
-
     public void delete(Long id){
         userLrRepository.deleteById(id);
     }

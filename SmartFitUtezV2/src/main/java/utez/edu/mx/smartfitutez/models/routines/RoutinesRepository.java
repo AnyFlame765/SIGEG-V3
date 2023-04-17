@@ -26,6 +26,9 @@ public interface RoutinesRepository extends JpaRepository<Routines, Long> {
 
     List<Routines> findAll();
 
+    @Query("SELECT r FROM Routines r WHERE r.name = :name AND r.userLR.id = :id")
+    List<Routines> findRoutinesByNameAndUserId(@Param("name") String name, @Param("id") Long id);
+
     @Modifying
     @Query("DELETE FROM Routines r WHERE r.name = :name AND r.userLR.id = :id")
     void deleteRoutinesByNameAndUserId(@Param("name") String name, @Param("id") Long id);

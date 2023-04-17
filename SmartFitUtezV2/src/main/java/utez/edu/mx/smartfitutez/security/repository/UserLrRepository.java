@@ -34,4 +34,5 @@ public interface UserLrRepository extends JpaRepository<UserLR, Long> {
     @Query("SELECT u FROM UserLR u JOIN u.roles roles WHERE roles.id = 1 AND u.id = :id")
     Optional<UserLR> findByIdAndAlumnoRole(Long id);
 
+
 }
