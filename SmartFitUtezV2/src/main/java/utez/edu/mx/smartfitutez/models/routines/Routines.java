@@ -29,7 +29,6 @@ public class Routines {
 
     @ManyToOne
     @JoinColumn(name = "id_exercise")
-    @JsonBackReference
     private Exercises exercise;
 
     @ManyToOne

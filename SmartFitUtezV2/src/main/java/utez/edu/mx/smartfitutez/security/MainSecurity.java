@@ -23,7 +23,7 @@ import utez.edu.mx.smartfitutez.security.service.UserDetailsServiceImpl;
 // Los metodos que no lleven anotación pueden acceder el admin como un generic user
 // @preauthorized solo puede acceder el admin
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class MainSecurity extends WebSecurityConfigurerAdapter{
+public class    MainSecurity extends WebSecurityConfigurerAdapter{
     @Autowired
     UserDetailsServiceImpl userDetailsService;
 

@@ -303,7 +303,6 @@ private JavaMailSender javaMailSender;
         }
     }
 
-
     @PostMapping("/addRoutine")
     @ResponseBody
     public Routines addRoutineToUser(@RequestBody Routines routine) {
@@ -354,13 +353,15 @@ private JavaMailSender javaMailSender;
 
     @GetMapping("/user/{id}")
     public List<Routines> getRoutinesByUserIdAndRoleId(@PathVariable Long id) {
-        return serviceRoutine.findAllRoutinesByUserIdAndRoleId(id);
+        return serviceRoutine.getRoutinesByUserId(id);
     }
 
     @DeleteMapping("/{id}/{routineName}")
     public void deleteRoutinesByNameAndUserId(@PathVariable Long id, @PathVariable String routineName) {
         serviceRoutine.deleteRoutinesByNameAndUserId(routineName, id);
     }
+
+    //servicio que liste todos los ejercicios que hay dentro de una rutina de cada usuario
 
 
     @DeleteMapping("/{userId}/{exerciseId}/{routineName}")
@@ -370,5 +371,6 @@ private JavaMailSender javaMailSender;
         serviceRoutine.deleteRoutinesByUserExerciseAndName(userId, exerciseId, routineName);
         return ResponseEntity.ok("Routines deleted successfully.");
     }
+
 
 }

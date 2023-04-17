@@ -97,13 +97,14 @@ public class RoutineService {
         return routine.get();
     }
 
-    public List<Routines> findAllRoutinesByUserIdAndRoleId(Long id) {
+    //Obtener rutinas por usuario
+    public List<Routines> getRoutinesByUserId(Long id) {
         Optional<UserLR> user = userRepository.findByIdAndAlumnoRole(id);
         if (user.isEmpty()) {
             logger.error("User with id {} and role 'Usuario' not found.", id);
             throw new RuntimeException("User with id " + id + " and role 'Usuario' not found.");
         }
-        return routinesRepository.findAllRoutinesByUserIdAndRoleId(id);
+        return routinesRepository.findRoutinesByUserId(user.get().getId());
     }
 
     @Transactional

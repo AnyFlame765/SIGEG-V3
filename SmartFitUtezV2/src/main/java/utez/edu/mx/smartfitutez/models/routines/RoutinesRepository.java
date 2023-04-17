@@ -17,8 +17,10 @@ public interface RoutinesRepository extends JpaRepository<Routines, Long> {
     @Query("SELECT e FROM Exercises e WHERE e.id_exercises = :exerciseId")
     Optional<Exercises> findByExerciseId(Long exerciseId);
 
-    @Query("SELECT r FROM Routines r JOIN r.userLR u JOIN u.roles ro WHERE ro.id = 1 AND u.id = :id")
-    List<Routines> findAllRoutinesByUserIdAndRoleId(Long id);
+    //listar rutinas por usuario y tambien traer el id del ejercicio
+    @Query("SELECT r FROM Routines r WHERE r.userLR.id = :id")
+    List<Routines> findRoutinesByUserId(@Param("id") Long id);
+
 
     Optional<Routines> findById(Long id);
 
