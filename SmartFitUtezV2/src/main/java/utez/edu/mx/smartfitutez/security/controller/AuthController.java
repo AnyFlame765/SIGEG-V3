@@ -253,8 +253,6 @@ private JavaMailSender javaMailSender;
     public ResponseEntity<?> updateExercise(@PathVariable("id") Long id, @RequestBody Exercises exercise) {
         if (!service.existsById(id))
             return new ResponseEntity<>(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-        if (service.existsByName(exercise.getName()) && service.getOne(id).get().getName().equals(exercise.getName()))
-            return new ResponseEntity<>(new Mensaje("Ese nombre ya existe"), HttpStatus.BAD_REQUEST);
         Exercises exercises = service.getOne(id).get();
         exercises.setName(exercise.getName());
         exercises.setCategory(exercise.getCategory());
