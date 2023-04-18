@@ -21,5 +21,7 @@ public class CreateRoles implements CommandLineRunner {
         roleService.save(roleInstructor);
         roleService.save(roleUser);
     }
-}*/
+}
+
+*/
 

@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,8 @@ import utez.edu.mx.smartfitutez.security.service.UserLrService;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.*;
@@ -80,8 +83,8 @@ public class AuthController {
     @Autowired
     private RoutinesRepository routinesRepository;
 
-@Autowired
-private JavaMailSender javaMailSender;
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     @PostMapping("/nuevoInstructor")
     public ResponseEntity<?> newInstructor(@Valid @RequestBody InstructorRequest instructorRequest, BindingResult bindingResult) {
@@ -132,8 +135,26 @@ private JavaMailSender javaMailSender;
         userLRo.setRoles(roles);
         userLrService.save(userLRo);
 
-        return new ResponseEntity<>(new Mensaje("Usuario creado"), HttpStatus.CREATED);
+        try {
+            String htmlFilePath = "https://emailsigeg.s3.amazonaws.com/welcome-email.html";
+            URL url = new URL(htmlFilePath);
+            String content = IOUtils.toString(url, StandardCharsets.UTF_8);
+
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            helper.setTo(newUser.getEmail());
+            helper.setSubject("Aviso SmartFit UTEZ");
+            helper.setText(content, true);
+            javaMailSender.send(message);
+
+            return new ResponseEntity<>(new Mensaje("Usuario creado y correo electrónico enviado"), HttpStatus.CREATED);
+
+        } catch (MessagingException | IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new Mensaje("Error al enviar correo electrónico"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
     @GetMapping("/listaAlumnos")
     public ResponseEntity<?> listAlumnos() {
         return new ResponseEntity<>(userLrService.findStudents(), HttpStatus.OK);

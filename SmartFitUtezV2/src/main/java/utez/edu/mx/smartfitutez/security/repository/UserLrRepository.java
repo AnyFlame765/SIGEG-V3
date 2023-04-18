@@ -28,10 +28,10 @@ public interface UserLrRepository extends JpaRepository<UserLR, Long> {
     Optional<UserLR> findByIdAndInstructorRole(Long id);
 
     //listar usuarios con el rol de Alumno
-    @Query("SELECT u FROM UserLR u JOIN u.roles roles WHERE roles.id = 1")
+    @Query("SELECT u FROM UserLR u JOIN u.roles roles WHERE roles.id = 3")
     List<UserLR> findStudents();
 
-    @Query("SELECT u FROM UserLR u JOIN u.roles roles WHERE roles.id = 1 AND u.id = :id")
+    @Query("SELECT u FROM UserLR u JOIN u.roles roles WHERE roles.id = 3 AND u.id = :id")
     Optional<UserLR> findByIdAndAlumnoRole(Long id);
 
 
